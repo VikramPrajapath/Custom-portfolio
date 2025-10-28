@@ -69,7 +69,7 @@ export const Services = ({ isDark }) => {
 
         <Grid container spacing={3}>
           {services.map((service) => (
-            <Grid item xs={6} md={4} lg={2} key={service.id}>
+            <Grid key={service.id} size={{ xs: 6, md: 4, lg: 2 }}>
               <Box
                 component="a"
                 href={`#${service.id}`}
@@ -78,16 +78,22 @@ export const Services = ({ isDark }) => {
                   p: 4,
                   textAlign: "center",
                   borderRadius: 4,
-                  bgcolor: "rgba(255, 255, 255, 0.8)",
+                  bgcolor: isDark
+                    ? "rgba(255, 255, 255, 0.05)"
+                    : "rgba(255, 255, 255, 0.8)",
                   backdropFilter: "blur(10px)",
-                  border: "1px solid rgba(59, 130, 246, 0.2)",
+                  border: isDark
+                    ? "1px solid rgba(139, 198, 196, 0.2)"
+                    : "1px solid rgba(59, 130, 246, 0.2)",
                   transition: "all 0.4s ease",
                   textDecoration: "none",
                   cursor: "pointer",
                   height: "100%",
                   "&:hover": {
                     transform: "scale(1.05) translateY(-8px)",
-                    bgcolor: "rgba(59, 130, 246, 0.1)",
+                    bgcolor: isDark
+                      ? "rgba(139, 198, 196, 0.1)"
+                      : "rgba(59, 130, 246, 0.1)",
                     boxShadow: "0 15px 35px rgba(59, 130, 246, 0.1)",
                   },
                 }}
@@ -98,7 +104,7 @@ export const Services = ({ isDark }) => {
                     mb: 2,
                     transform: "scale(1)",
                     transition: "transform 0.3s ease",
-                    ".MuiBox-root:hover &": {
+                    "&:hover": {
                       transform: "scale(1.2) rotate(5deg)",
                     },
                   }}
@@ -123,7 +129,7 @@ export const Services = ({ isDark }) => {
                     opacity: 0,
                     transform: "translateY(10px)",
                     transition: "all 0.3s ease",
-                    ".MuiBox-root:hover &": {
+                    "&:hover": {
                       opacity: 1,
                       transform: "translateY(0)",
                     },

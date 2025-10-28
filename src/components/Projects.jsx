@@ -13,89 +13,17 @@ import {
 } from "@mui/material";
 import { Play, Eye, Heart, Clock, ExternalLink } from "lucide-react";
 
-// Dynamic projects data
-export const allProjects = [
-  {
-    id: 1,
-    title: "Motion Graphics Showreel",
-    category: "animations",
-    views: "125K",
-    likes: "8.5K",
-    duration: "2:30",
-    color: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-    description: "A stunning showcase of motion graphics and visual effects",
-    tags: ["After Effects", "Cinema 4D", "Visual Effects"],
-    projectLink: "#",
-    featured: true,
-  },
-  {
-    id: 2,
-    title: "Tech Podcast Series",
-    category: "podcast",
-    views: "89K",
-    likes: "6.2K",
-    duration: "45:00",
-    color: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
-    description: "Professional podcast editing for tech industry leaders",
-    tags: ["Audition", "Sound Design", "Mixing"],
-    projectLink: "#",
-    featured: true,
-  },
-  {
-    id: 3,
-    title: "Brand Documentary",
-    category: "videos",
-    views: "210K",
-    likes: "12.5K",
-    duration: "15:20",
-    color: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
-    description: "Long-form brand storytelling documentary",
-    tags: ["Premiere Pro", "Color Grading", "Storytelling"],
-    projectLink: "#",
-    featured: false,
-  },
-  {
-    id: 4,
-    title: "Social Media Reels",
-    category: "reels",
-    views: "350K",
-    likes: "25K",
-    duration: "0:45",
-    color: "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)",
-    description: "Viral social media content series",
-    tags: ["Mobile Editing", "Trend Analysis", "Engagement"],
-    projectLink: "#",
-    featured: true,
-  },
-  {
-    id: 5,
-    title: "YouTube Thumbnail Pack",
-    category: "thumbnail",
-    views: "75K",
-    likes: "4.2K",
-    duration: "N/A",
-    color: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
-    description: "Custom thumbnail designs for YouTube creators",
-    tags: ["Photoshop", "Illustrator", "Design"],
-    projectLink: "#",
-    featured: false,
-  },
-  {
-    id: 6,
-    title: "Product Launch Video",
-    category: "videos",
-    views: "180K",
-    likes: "9.8K",
-    duration: "3:15",
-    color: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
-    description: "Dynamic product launch campaign video",
-    tags: ["Motion Graphics", "Sound Design", "Marketing"],
-    projectLink: "#",
-    featured: true,
-  },
+// Define categories locally to avoid import issues
+const categories = [
+  "all",
+  "animations",
+  "podcast",
+  "videos",
+  "reels",
+  "thumbnail",
 ];
 
-export const Projects = ({ projects = allProjects, onLoadMore, hasMore }) => {
+export const Projects = ({ projects = [], onLoadMore, hasMore }) => {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [hoveredProject, setHoveredProject] = useState(null);
 
@@ -167,7 +95,7 @@ export const Projects = ({ projects = allProjects, onLoadMore, hasMore }) => {
               },
             }}
           >
-            {PROJECT_CATEGORIES.map((category) => (
+            {categories.map((category) => (
               <ToggleButton key={category} value={category}>
                 {category === "all" ? "All Projects" : category}
               </ToggleButton>
@@ -177,7 +105,7 @@ export const Projects = ({ projects = allProjects, onLoadMore, hasMore }) => {
 
         <Grid container spacing={4}>
           {filteredProjects.map((project) => (
-            <Grid item xs={12} md={6} lg={4} key={project.id}>
+            <Grid key={project.id} size={{ xs: 12, md: 6, lg: 4 }}>
               <Card
                 sx={{
                   borderRadius: 4,
@@ -205,7 +133,6 @@ export const Projects = ({ projects = allProjects, onLoadMore, hasMore }) => {
                     background: project.color,
                     overflow: "hidden",
                   }}
-                  className="project-image"
                 >
                   {/* Play Button Overlay */}
                   <Box
@@ -401,6 +328,15 @@ export const Projects = ({ projects = allProjects, onLoadMore, hasMore }) => {
             >
               Load More Projects
             </Button>
+          </Box>
+        )}
+
+        {/* No Projects Message */}
+        {filteredProjects.length === 0 && (
+          <Box sx={{ textAlign: "center", mt: 6 }}>
+            <Typography variant="h6" color="grey.500">
+              No projects found in this category.
+            </Typography>
           </Box>
         )}
       </Container>

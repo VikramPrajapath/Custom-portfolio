@@ -7,7 +7,7 @@ export const Contact = ({ isDark }) => {
     <Box component="section" id="contact" sx={{ py: 12 }}>
       <Container maxWidth="lg">
         <Grid container spacing={6} alignItems="center">
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <Box>
               <Typography
                 variant="h3"
@@ -86,15 +86,18 @@ export const Contact = ({ isDark }) => {
             </Box>
           </Grid>
 
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <Box
               sx={{
                 p: 6,
                 borderRadius: 6,
-                background:
-                  "linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(99, 102, 241, 0.05))",
+                background: isDark
+                  ? "linear-gradient(135deg, rgba(139, 198, 196, 0.05), rgba(103, 159, 157, 0.05))"
+                  : "linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(99, 102, 241, 0.05))",
                 backdropFilter: "blur(10px)",
-                border: "1px solid rgba(59, 130, 246, 0.2)",
+                border: isDark
+                  ? "1px solid rgba(139, 198, 196, 0.2)"
+                  : "1px solid rgba(59, 130, 246, 0.2)",
                 textAlign: "center",
                 position: "relative",
                 overflow: "hidden",
