@@ -35,7 +35,7 @@ export const LoadingScreen = () => {
             mb: 2,
           }}
         >
-          Vikram Prajapat
+          Narendra Prajapati
         </Typography>
         <CircularProgress
           size={40}

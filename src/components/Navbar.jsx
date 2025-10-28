@@ -104,7 +104,7 @@ export const Navbar = ({
           }}
           onClick={() => handleNavClick("#home")}
         >
-          Vikram Prajapat
+          Narendra Prajapati
         </Typography>
 
         <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>

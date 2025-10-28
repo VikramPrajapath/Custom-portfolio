@@ -1,9 +1,9 @@
 // config.js - Central configuration for dynamic content
 export const SITE_CONFIG = {
-  title: "Vikram Prajapat - Creative Portfolio",
+  title: "Narendra Prajapati - Creative Portfolio",
   description:
     "Video editor & motion designer crafting impactful digital experiences",
-  author: "Vikram Prajapat",
+  author: "Narendra Prajapati",
   email: "hello@vikram.com",
   phone: "+1 (555) 123-4567",
   location: "Based in Creative City",
