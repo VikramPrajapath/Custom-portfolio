@@ -44,16 +44,14 @@ export const Testimonials = ({ isDark }) => {
                 sx={{
                   p: 4,
                   borderRadius: 6,
-                  bgcolor: isDark
-                    ? "rgba(255, 255, 255, 0.05)"
-                    : "rgba(255, 255, 255, 0.8)",
+                  bgcolor: "rgba(255, 255, 255, 0.8)",
                   backdropFilter: "blur(10px)",
+                  border: "1px solid rgba(59, 130, 246, 0.2)",
                   transition: "all 0.3s",
                   "&:hover": {
                     transform: "scale(1.05)",
-                    bgcolor: isDark
-                      ? "rgba(255, 255, 255, 0.1)"
-                      : "rgba(255, 255, 255, 0.9)",
+                    bgcolor: "rgba(255, 255, 255, 0.9)",
+                    boxShadow: "0 10px 30px rgba(59, 130, 246, 0.1)",
                   },
                 }}
               >

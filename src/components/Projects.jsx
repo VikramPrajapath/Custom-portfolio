@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Container,
@@ -6,111 +6,208 @@ import {
   Grid,
   Card,
   CardContent,
+  Chip,
+  ToggleButton,
+  ToggleButtonGroup,
 } from "@mui/material";
-import { Play, Eye, Heart } from "lucide-react";
+import { Play, Eye, Heart, Clock, ExternalLink } from "lucide-react";
 
-const projects = [
+// Dynamic projects data - could be moved to a separate file
+const allProjects = [
   {
+    id: 1,
     title: "Motion Graphics Showreel",
     category: "animations",
     views: "125K",
     likes: "8.5K",
+    duration: "2:30",
+    color: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+    description: "A stunning showcase of motion graphics and visual effects",
+    tags: ["After Effects", "Cinema 4D", "Visual Effects"],
+    projectLink: "#",
+    featured: true,
   },
   {
+    id: 2,
     title: "Tech Podcast Series",
     category: "podcast",
     views: "89K",
     likes: "6.2K",
+    duration: "45:00",
+    color: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
+    description: "Professional podcast editing for tech industry leaders",
+    tags: ["Audition", "Sound Design", "Mixing"],
+    projectLink: "#",
+    featured: true,
   },
-  {
-    title: "Documentary Feature",
-    category: "videos",
-    views: "250K",
-    likes: "15K",
-  },
-  {
-    title: "Viral Marketing Reel",
-    category: "reels",
-    views: "500K",
-    likes: "42K",
-  },
-  {
-    title: "YouTube Thumbnails Pack",
-    category: "thumbnail",
-    views: "95K",
-    likes: "7.8K",
-  },
-  {
-    title: "Brand Identity Animation",
-    category: "animations",
-    views: "156K",
-    likes: "11K",
-  },
+  // Add more projects...
 ];
 
-export const Projects = ({ isDark }) => {
+const categories = [
+  "all",
+  "animations",
+  "podcast",
+  "videos",
+  "reels",
+  "thumbnail",
+];
+
+export const Projects = () => {
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [hoveredProject, setHoveredProject] = useState(null);
+
+  const filteredProjects =
+    selectedCategory === "all"
+      ? allProjects
+      : allProjects.filter((project) => project.category === selectedCategory);
+
+  const handleCategoryChange = (event, newCategory) => {
+    if (newCategory !== null) {
+      setSelectedCategory(newCategory);
+    }
+  };
+
   return (
-    <Box component="section" sx={{ py: 8 }}>
+    <Box component="section" id="projects" sx={{ py: 10 }}>
       <Container maxWidth="lg">
-        <Typography
-          variant="h3"
-          sx={{
-            textAlign: "center",
-            mb: 6,
-            fontWeight: "bold",
-          }}
-        >
-          Featured Work
-        </Typography>
+        <Box sx={{ textAlign: "center", mb: 8 }}>
+          <Typography
+            variant="h3"
+            sx={{
+              fontWeight: "bold",
+              mb: 2,
+            }}
+          >
+            Featured Work
+          </Typography>
+          <Typography
+            variant="h6"
+            sx={{
+              color: "grey.600",
+              maxWidth: "600px",
+              mx: "auto",
+              mb: 4,
+            }}
+          >
+            A collection of my latest projects that showcase creativity and
+            technical excellence
+          </Typography>
+
+          {/* Category Filter */}
+          <ToggleButtonGroup
+            value={selectedCategory}
+            exclusive
+            onChange={handleCategoryChange}
+            aria-label="project categories"
+            sx={{
+              mb: 4,
+              flexWrap: "wrap",
+              gap: 1,
+              "& .MuiToggleButton-root": {
+                border: "1px solid rgba(103, 159, 157, 0.3)",
+                borderRadius: "20px",
+                padding: "8px 16px",
+                textTransform: "capitalize",
+                "&.Mui-selected": {
+                  background: "linear-gradient(135deg, #679f9d, #26325b)",
+                  color: "white",
+                  "&:hover": {
+                    background: "linear-gradient(135deg, #679f9d, #26325b)",
+                  },
+                },
+              },
+            }}
+          >
+            {categories.map((category) => (
+              <ToggleButton key={category} value={category}>
+                {category === "all" ? "All Projects" : category}
+              </ToggleButton>
+            ))}
+          </ToggleButtonGroup>
+        </Box>
 
         <Grid container spacing={4}>
-          {projects.map((project, i) => (
-            <Grid item xs={12} md={6} lg={4} key={i}>
+          {filteredProjects.map((project) => (
+            <Grid item xs={12} md={6} lg={4} key={project.id}>
               <Card
                 sx={{
-                  borderRadius: 6,
-                  bgcolor: isDark
-                    ? "rgba(255, 255, 255, 0.05)"
-                    : "rgba(255, 255, 255, 0.8)",
+                  borderRadius: 4,
+                  bgcolor: "rgba(255, 255, 255, 0.8)",
                   backdropFilter: "blur(10px)",
-                  transition: "all 0.5s",
+                  border: "1px solid rgba(103, 159, 157, 0.2)",
+                  transition: "all 0.4s ease",
                   cursor: "pointer",
-                  "&:hover": {
-                    transform: "scale(1.05) translateY(-8px)",
-                    bgcolor: isDark
-                      ? "rgba(255, 255, 255, 0.1)"
-                      : "rgba(255, 255, 255, 0.9)",
-                  },
+                  overflow: "hidden",
+                  position: "relative",
                 }}
+                onMouseEnter={() => setHoveredProject(project.id)}
+                onMouseLeave={() => setHoveredProject(null)}
               >
+                {/* Project Thumbnail */}
                 <Box
                   sx={{
                     position: "relative",
-                    paddingTop: "56.25%", // 16:9 aspect ratio
-                    background: isDark
-                      ? "linear-gradient(135deg, #4c1d95 0%, #831843 100%)"
-                      : "linear-gradient(135deg, #ddd6fe 0%, #fbcfe8 100%)",
+                    paddingTop: "56.25%",
+                    background: project.color,
                     overflow: "hidden",
                   }}
+                  className="project-image"
                 >
+                  {/* Play Button Overlay */}
                   <Box
                     sx={{
                       position: "absolute",
-                      top: "50%",
-                      left: "50%",
-                      transform: "translate(-50%, -50%)",
-                      opacity: 0,
-                      transition: "opacity 0.3s",
-                      ".MuiCard-root:hover &": {
-                        opacity: 1,
-                      },
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      background: "rgba(0,0,0,0.3)",
+                      opacity: hoveredProject === project.id ? 1 : 0,
+                      transition: "all 0.3s ease",
                     }}
                   >
-                    <Play
-                      className={isDark ? "text-white" : "text-gray-900"}
-                      size={48}
-                    />
+                    <Play size={48} style={{ color: "white" }} fill="white" />
                   </Box>
+
+                  {/* Duration Chip */}
+                  <Chip
+                    icon={<Clock size={14} />}
+                    label={project.duration}
+                    size="small"
+                    sx={{
+                      position: "absolute",
+                      bottom: 12,
+                      right: 12,
+                      bgcolor: "rgba(0,0,0,0.8)",
+                      color: "white",
+                      fontSize: "0.75rem",
+                    }}
+                  />
+
+                  {/* External Link */}
+                  {project.projectLink && (
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        top: 12,
+                        right: 12,
+                        bgcolor: "rgba(255,255,255,0.9)",
+                        borderRadius: "50%",
+                        width: 32,
+                        height: 32,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        opacity: hoveredProject === project.id ? 1 : 0,
+                        transition: "all 0.3s ease",
+                      }}
+                    >
+                      <ExternalLink size={16} />
+                    </Box>
+                  )}
                 </Box>
 
                 <CardContent sx={{ p: 3 }}>
@@ -119,31 +216,108 @@ export const Projects = ({ isDark }) => {
                     sx={{
                       fontWeight: "bold",
                       mb: 2,
+                      lineHeight: 1.3,
+                      color: "#26325b",
                     }}
                   >
                     {project.title}
                   </Typography>
+
+                  {/* Tags */}
+                  <Box
+                    sx={{ display: "flex", flexWrap: "wrap", gap: 1, mb: 2 }}
+                  >
+                    {project.tags.map((tag, index) => (
+                      <Chip
+                        key={index}
+                        label={tag}
+                        size="small"
+                        variant="outlined"
+                        sx={{
+                          borderColor: "#679f9d",
+                          color: "#679f9d",
+                          fontSize: "0.7rem",
+                          height: 24,
+                        }}
+                      />
+                    ))}
+                  </Box>
+
                   <Box
                     sx={{
                       display: "flex",
-                      gap: 3,
-                      color: isDark ? "grey.400" : "grey.600",
+                      justifyContent: "space-between",
+                      alignItems: "center",
                     }}
                   >
-                    <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                      <Eye size={16} />
-                      <Typography variant="body2">{project.views}</Typography>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        gap: 3,
+                        color: "grey.600",
+                      }}
+                    >
+                      <Box
+                        sx={{ display: "flex", alignItems: "center", gap: 1 }}
+                      >
+                        <Eye size={16} />
+                        <Typography
+                          variant="body2"
+                          sx={{ fontSize: "0.875rem" }}
+                        >
+                          {project.views}
+                        </Typography>
+                      </Box>
+                      <Box
+                        sx={{ display: "flex", alignItems: "center", gap: 1 }}
+                      >
+                        <Heart size={16} />
+                        <Typography
+                          variant="body2"
+                          sx={{ fontSize: "0.875rem" }}
+                        >
+                          {project.likes}
+                        </Typography>
+                      </Box>
                     </Box>
-                    <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                      <Heart size={16} />
-                      <Typography variant="body2">{project.likes}</Typography>
-                    </Box>
+
+                    <Chip
+                      label={project.category}
+                      size="small"
+                      sx={{
+                        bgcolor: "rgba(103, 159, 157, 0.1)",
+                        color: "#679f9d",
+                        fontWeight: 600,
+                        textTransform: "capitalize",
+                      }}
+                    />
                   </Box>
                 </CardContent>
               </Card>
             </Grid>
           ))}
         </Grid>
+
+        {/* Load More Button */}
+        {filteredProjects.length > 6 && (
+          <Box sx={{ textAlign: "center", mt: 6 }}>
+            <Button
+              variant="outlined"
+              sx={{
+                borderRadius: "50px",
+                px: 4,
+                py: 1.5,
+                borderColor: "#679f9d",
+                color: "#679f9d",
+                "&:hover": {
+                  bgcolor: "rgba(103, 159, 157, 0.1)",
+                },
+              }}
+            >
+              Load More Projects
+            </Button>
+          </Box>
+        )}
       </Container>
     </Box>
   );
