@@ -1,7 +1,8 @@
 // config.js - Central configuration for dynamic content
 export const SITE_CONFIG = {
   title: "Vikram Prajapat - Creative Portfolio",
-  description: "Video editor & motion designer crafting impactful digital experiences",
+  description:
+    "Video editor & motion designer crafting impactful digital experiences",
   author: "Vikram Prajapat",
   email: "hello@vikram.com",
   phone: "+1 (555) 123-4567",
@@ -16,11 +17,16 @@ export const SITE_CONFIG = {
     darkMode: true,
     animations: true,
     contactForm: true,
-  }
+  },
 };
 
 export const PROJECT_CATEGORIES = [
-  "all", "animations", "podcast", "videos", "reels", "thumbnail"
+  "all",
+  "animations",
+  "podcast",
+  "videos",
+  "reels",
+  "thumbnail",
 ];
 
 export const SKILLS = [
@@ -29,3 +35,20 @@ export const SKILLS = [
   { name: "Visual Effects", level: 85 },
   { name: "Sound Design", level: 80 },
 ];
+
+// Dynamic content that can be updated
+export const DYNAMIC_CONTENT = {
+  stats: {
+    projects: 250,
+    clients: 100,
+    views: 5000000,
+    awards: 15,
+  },
+  availability: true,
+  rotatingTexts: [
+    "Visual Magic",
+    "Engaging Content",
+    "Creative Solutions",
+    "Digital Experiences",
+  ],
+};

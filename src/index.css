@@ -14,6 +14,18 @@ body {
   line-height: 1.6;
 }
 
+/* Dark mode styles */
+body.dark {
+  background: #0f172a;
+  color: #f8fafc;
+}
+
+body.dark .main-content {
+  color: #94a3b8;
+  background: #1e293b;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;
@@ -47,4 +59,58 @@ body.dark ::-webkit-scrollbar-thumb {
 
 body.dark ::-webkit-scrollbar-thumb:hover {
   background: #a8d8d6;
+}
+
+/* Animation keyframes */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(180deg);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Responsive design helpers */
+@media (max-width: 768px) {
+  .mobile-hidden {
+    display: none !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .desktop-hidden {
+    display: none !important;
+  }
 }

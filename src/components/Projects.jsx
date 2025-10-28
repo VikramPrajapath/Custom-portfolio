@@ -9,11 +9,13 @@ import {
   Chip,
   ToggleButton,
   ToggleButtonGroup,
+  Button,
 } from "@mui/material";
 import { Play, Eye, Heart, Clock, ExternalLink } from "lucide-react";
+import { PROJECT_CATEGORIES } from "./configs";
 
-// Dynamic projects data - could be moved to a separate file
-const allProjects = [
+// Dynamic projects data
+export const allProjects = [
   {
     id: 1,
     title: "Motion Graphics Showreel",
@@ -40,30 +42,78 @@ const allProjects = [
     projectLink: "#",
     featured: true,
   },
-  // Add more projects...
+  {
+    id: 3,
+    title: "Brand Documentary",
+    category: "videos",
+    views: "210K",
+    likes: "12.5K",
+    duration: "15:20",
+    color: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
+    description: "Long-form brand storytelling documentary",
+    tags: ["Premiere Pro", "Color Grading", "Storytelling"],
+    projectLink: "#",
+    featured: false,
+  },
+  {
+    id: 4,
+    title: "Social Media Reels",
+    category: "reels",
+    views: "350K",
+    likes: "25K",
+    duration: "0:45",
+    color: "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)",
+    description: "Viral social media content series",
+    tags: ["Mobile Editing", "Trend Analysis", "Engagement"],
+    projectLink: "#",
+    featured: true,
+  },
+  {
+    id: 5,
+    title: "YouTube Thumbnail Pack",
+    category: "thumbnail",
+    views: "75K",
+    likes: "4.2K",
+    duration: "N/A",
+    color: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
+    description: "Custom thumbnail designs for YouTube creators",
+    tags: ["Photoshop", "Illustrator", "Design"],
+    projectLink: "#",
+    featured: false,
+  },
+  {
+    id: 6,
+    title: "Product Launch Video",
+    category: "videos",
+    views: "180K",
+    likes: "9.8K",
+    duration: "3:15",
+    color: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
+    description: "Dynamic product launch campaign video",
+    tags: ["Motion Graphics", "Sound Design", "Marketing"],
+    projectLink: "#",
+    featured: true,
+  },
 ];
 
-const categories = [
-  "all",
-  "animations",
-  "podcast",
-  "videos",
-  "reels",
-  "thumbnail",
-];
-
-export const Projects = () => {
+export const Projects = ({ projects = allProjects, onLoadMore, hasMore }) => {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [hoveredProject, setHoveredProject] = useState(null);
 
   const filteredProjects =
     selectedCategory === "all"
-      ? allProjects
-      : allProjects.filter((project) => project.category === selectedCategory);
+      ? projects
+      : projects.filter((project) => project.category === selectedCategory);
 
   const handleCategoryChange = (event, newCategory) => {
     if (newCategory !== null) {
       setSelectedCategory(newCategory);
+    }
+  };
+
+  const handleProjectClick = (project) => {
+    if (project.projectLink && project.projectLink !== "#") {
+      window.open(project.projectLink, "_blank");
     }
   };
 
@@ -118,7 +168,7 @@ export const Projects = () => {
               },
             }}
           >
-            {categories.map((category) => (
+            {PROJECT_CATEGORIES.map((category) => (
               <ToggleButton key={category} value={category}>
                 {category === "all" ? "All Projects" : category}
               </ToggleButton>
@@ -139,9 +189,14 @@ export const Projects = () => {
                   cursor: "pointer",
                   overflow: "hidden",
                   position: "relative",
+                  "&:hover": {
+                    transform: "translateY(-8px)",
+                    boxShadow: "0 20px 40px rgba(103, 159, 157, 0.2)",
+                  },
                 }}
                 onMouseEnter={() => setHoveredProject(project.id)}
                 onMouseLeave={() => setHoveredProject(null)}
+                onClick={() => handleProjectClick(project)}
               >
                 {/* Project Thumbnail */}
                 <Box
@@ -173,19 +228,21 @@ export const Projects = () => {
                   </Box>
 
                   {/* Duration Chip */}
-                  <Chip
-                    icon={<Clock size={14} />}
-                    label={project.duration}
-                    size="small"
-                    sx={{
-                      position: "absolute",
-                      bottom: 12,
-                      right: 12,
-                      bgcolor: "rgba(0,0,0,0.8)",
-                      color: "white",
-                      fontSize: "0.75rem",
-                    }}
-                  />
+                  {project.duration !== "N/A" && (
+                    <Chip
+                      icon={<Clock size={14} />}
+                      label={project.duration}
+                      size="small"
+                      sx={{
+                        position: "absolute",
+                        bottom: 12,
+                        right: 12,
+                        bgcolor: "rgba(0,0,0,0.8)",
+                        color: "white",
+                        fontSize: "0.75rem",
+                      }}
+                    />
+                  )}
 
                   {/* External Link */}
                   {project.projectLink && (
@@ -208,6 +265,23 @@ export const Projects = () => {
                       <ExternalLink size={16} />
                     </Box>
                   )}
+
+                  {/* Featured Badge */}
+                  {project.featured && (
+                    <Chip
+                      label="Featured"
+                      size="small"
+                      sx={{
+                        position: "absolute",
+                        top: 12,
+                        left: 12,
+                        bgcolor: "rgba(103, 159, 157, 0.9)",
+                        color: "white",
+                        fontSize: "0.7rem",
+                        fontWeight: "bold",
+                      }}
+                    />
+                  )}
                 </Box>
 
                 <CardContent sx={{ p: 3 }}>
@@ -221,6 +295,17 @@ export const Projects = () => {
                     }}
                   >
                     {project.title}
+                  </Typography>
+
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: "grey.600",
+                      mb: 2,
+                      fontSize: "0.875rem",
+                    }}
+                  >
+                    {project.description}
                   </Typography>
 
                   {/* Tags */}
@@ -299,10 +384,11 @@ export const Projects = () => {
         </Grid>
 
         {/* Load More Button */}
-        {filteredProjects.length > 6 && (
+        {hasMore && (
           <Box sx={{ textAlign: "center", mt: 6 }}>
             <Button
               variant="outlined"
+              onClick={onLoadMore}
               sx={{
                 borderRadius: "50px",
                 px: 4,

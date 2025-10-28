@@ -10,10 +10,18 @@ import {
   Menu,
   MenuItem,
   useMediaQuery,
+  Switch,
+  FormControlLabel,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import { Brightness4, Brightness7 } from "@mui/icons-material";
 
-export const Navbar = ({ scrollY, activeSection }) => {
+export const Navbar = ({
+  scrollY,
+  activeSection,
+  isDark,
+  onToggleDarkMode,
+}) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [anchorEl, setAnchorEl] = useState(null);
@@ -55,11 +63,21 @@ export const Navbar = ({ scrollY, activeSection }) => {
     <AppBar
       position="fixed"
       sx={{
-        background: scrollY > 50 ? "rgba(248, 250, 252, 0.9)" : "transparent",
+        background:
+          scrollY > 50
+            ? isDark
+              ? "rgba(15, 23, 42, 0.9)"
+              : "rgba(248, 250, 252, 0.9)"
+            : "transparent",
         backdropFilter: scrollY > 50 ? "blur(10px)" : "none",
         boxShadow: scrollY > 50 ? 1 : "none",
         transition: "all 0.3s ease",
-        borderBottom: scrollY > 50 ? "1px solid rgba(0,0,0,0.1)" : "none",
+        borderBottom:
+          scrollY > 50
+            ? `1px solid ${
+                isDark ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)"
+              }`
+            : "none",
       }}
     >
       <Toolbar
@@ -75,7 +93,9 @@ export const Navbar = ({ scrollY, activeSection }) => {
           variant="h6"
           component="h1"
           sx={{
-            background: "linear-gradient(to right, #3b82f6, #6366f1)",
+            background: isDark
+              ? "linear-gradient(to right, #8bc6c4, #679f9d)"
+              : "linear-gradient(to right, #3b82f6, #6366f1)",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
             fontWeight: "bold",
@@ -88,6 +108,11 @@ export const Navbar = ({ scrollY, activeSection }) => {
         </Typography>
 
         <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+          {/* Dark Mode Toggle */}
+          <IconButton onClick={onToggleDarkMode} color="inherit">
+            {isDark ? <Brightness7 /> : <Brightness4 />}
+          </IconButton>
+
           {isMobile ? (
             <>
               <IconButton
@@ -121,10 +146,18 @@ export const Navbar = ({ scrollY, activeSection }) => {
                     key={item.name}
                     onClick={() => handleNavClick(item.href)}
                     sx={{
-                      color: isActive(item.href) ? "#3b82f6" : "grey.700",
+                      color: isActive(item.href)
+                        ? isDark
+                          ? "#8bc6c4"
+                          : "#3b82f6"
+                        : isDark
+                        ? "grey.300"
+                        : "grey.700",
                       fontWeight: isActive(item.href) ? 600 : 400,
                       background: isActive(item.href)
-                        ? "rgba(59, 130, 246, 0.1)"
+                        ? isDark
+                          ? "rgba(139, 198, 196, 0.1)"
+                          : "rgba(59, 130, 246, 0.1)"
                         : "transparent",
                     }}
                   >
@@ -134,22 +167,32 @@ export const Navbar = ({ scrollY, activeSection }) => {
               </Menu>
             </>
           ) : (
-            <Box sx={{ display: "flex", gap: 1 }}>
+            <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
               {navItems.map((item) => (
                 <Button
                   key={item.name}
                   onClick={() => handleNavClick(item.href)}
                   sx={{
-                    color: isActive(item.href) ? "#3b82f6" : "grey.700",
+                    color: isActive(item.href)
+                      ? isDark
+                        ? "#8bc6c4"
+                        : "#3b82f6"
+                      : isDark
+                      ? "grey.300"
+                      : "grey.700",
                     fontWeight: isActive(item.href) ? 600 : 500,
                     fontSize: "0.9rem",
                     padding: "6px 16px",
                     borderRadius: "20px",
                     background: isActive(item.href)
-                      ? "rgba(59, 130, 246, 0.1)"
+                      ? isDark
+                        ? "rgba(139, 198, 196, 0.1)"
+                        : "rgba(59, 130, 246, 0.1)"
                       : "transparent",
                     "&:hover": {
-                      background: "rgba(59, 130, 246, 0.1)",
+                      background: isDark
+                        ? "rgba(139, 198, 196, 0.1)"
+                        : "rgba(59, 130, 246, 0.1)",
                     },
                   }}
                 >

@@ -2,36 +2,65 @@ import React, { useState, useEffect } from "react";
 import { Box, Typography, Button, Container, Grid } from "@mui/material";
 import { PlayCircle, Download } from "lucide-react";
 
-export const Hero = () => {
+export const Hero = ({ stats, rotatingTexts, isAvailable }) => {
   const [currentText, setCurrentText] = useState(0);
+  const [animatedStats, setAnimatedStats] = useState({
+    projects: 0,
+    clients: 0,
+    views: 0,
+    awards: 0,
+  });
 
-  const rotatingTexts = [
-    "Visual Magic",
-    "Engaging Content",
-    "Creative Solutions",
-    "Digital Experiences",
-  ];
-
-  const stats = [
-    { label: "Projects", value: "250+", suffix: "Completed" },
-    { label: "Clients", value: "100+", suffix: "Worldwide" },
-    { label: "Views", value: "5M+", suffix: "Total" },
-    { label: "Awards", value: "15+", suffix: "Won" },
+  const formattedStats = [
+    { label: "Projects", value: stats?.projects || 0, suffix: "Completed" },
+    { label: "Clients", value: stats?.clients || 0, suffix: "Worldwide" },
+    { label: "Views", value: stats?.views || 0, suffix: "Total" },
+    { label: "Awards", value: stats?.awards || 0, suffix: "Won" },
   ];
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentText((prev) => (prev + 1) % rotatingTexts.length);
+      setCurrentText((prev) => (prev + 1) % (rotatingTexts?.length || 4));
     }, 3000);
     return () => clearInterval(interval);
-  }, []);
+  }, [rotatingTexts]);
+
+  // Animate stats counting
+  useEffect(() => {
+    const duration = 2000;
+    const steps = 60;
+    const stepDuration = duration / steps;
+
+    formattedStats.forEach((stat, index) => {
+      let step = 0;
+      const timer = setInterval(() => {
+        step++;
+        const progress = step / steps;
+        const currentValue = Math.floor(stat.value * progress);
+
+        setAnimatedStats((prev) => ({
+          ...prev,
+          [stat.label.toLowerCase()]: currentValue,
+        }));
+
+        if (step >= steps) {
+          clearInterval(timer);
+        }
+      }, stepDuration);
+    });
+  }, [stats]);
 
   const handleDownloadCV = () => {
-    // This would typically download a PDF
     const link = document.createElement("a");
-    link.href = "/resume.pdf"; // Update with actual path
+    link.href = "/resume.pdf";
     link.download = "Vikram_Prajapat_Resume.pdf";
     link.click();
+  };
+
+  const formatNumber = (num) => {
+    if (num >= 1000000) return `${(num / 1000000).toFixed(1)}M+`;
+    if (num >= 1000) return `${(num / 1000).toFixed(1)}K+`;
+    return `${num}+`;
   };
 
   return (
@@ -72,45 +101,47 @@ export const Hero = () => {
       <Container maxWidth="lg">
         <Box sx={{ textAlign: "center", mb: 8, position: "relative" }}>
           {/* Availability Badge */}
-          <Box
-            sx={{
-              display: "inline-flex",
-              alignItems: "center",
-              mb: 4,
-              p: "2px",
-              borderRadius: "50px",
-              background: "linear-gradient(135deg, #679f9d, #f98787)",
-              boxShadow: "0 4px 15px rgba(0,0,0,0.1)",
-            }}
-          >
+          {isAvailable && (
             <Box
               sx={{
-                px: 3,
-                py: 1,
-                borderRadius: "50px",
-                bgcolor: "white",
-                display: "flex",
+                display: "inline-flex",
                 alignItems: "center",
-                gap: 1,
+                mb: 4,
+                p: "2px",
+                borderRadius: "50px",
+                background: "linear-gradient(135deg, #679f9d, #f98787)",
+                boxShadow: "0 4px 15px rgba(0,0,0,0.1)",
               }}
             >
               <Box
                 sx={{
-                  width: 8,
-                  height: 8,
-                  borderRadius: "50%",
-                  background: "#22c55e",
-                  animation: "pulse 2s infinite",
+                  px: 3,
+                  py: 1,
+                  borderRadius: "50px",
+                  bgcolor: "white",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 1,
                 }}
-              />
-              <Typography
-                variant="subtitle2"
-                sx={{ fontWeight: 600, color: "#26325b" }}
               >
-                Available for Freelance
-              </Typography>
+                <Box
+                  sx={{
+                    width: 8,
+                    height: 8,
+                    borderRadius: "50%",
+                    background: "#22c55e",
+                    animation: "pulse 2s infinite",
+                  }}
+                />
+                <Typography
+                  variant="subtitle2"
+                  sx={{ fontWeight: 600, color: "#26325b" }}
+                >
+                  Available for Freelance
+                </Typography>
+              </Box>
             </Box>
-          </Box>
+          )}
 
           {/* Main Heading with Typing Effect */}
           <Typography
@@ -138,7 +169,7 @@ export const Hero = () => {
               }}
               key={currentText}
             >
-              {rotatingTexts[currentText]}
+              {rotatingTexts?.[currentText] || "Creative Solutions"}
             </Box>
             That Inspires
           </Typography>
@@ -223,7 +254,7 @@ export const Hero = () => {
 
         {/* Stats Grid */}
         <Grid container spacing={3} sx={{ mt: 8 }}>
-          {stats.map((stat, i) => (
+          {formattedStats.map((stat, i) => (
             <Grid item xs={6} md={3} key={i}>
               <Box
                 sx={{
@@ -241,10 +272,6 @@ export const Hero = () => {
                     boxShadow: "0 15px 30px rgba(103, 159, 157, 0.15)",
                   },
                 }}
-                onClick={() => {
-                  // Add click functionality for stats
-                  console.log(`Clicked on ${stat.label}`);
-                }}
               >
                 <Typography
                   variant="h3"
@@ -257,7 +284,9 @@ export const Hero = () => {
                     mb: 1,
                   }}
                 >
-                  {stat.value}
+                  {formatNumber(
+                    animatedStats[stat.label.toLowerCase()] || stat.value
+                  )}
                 </Typography>
                 <Typography
                   variant="h6"
