@@ -16,12 +16,12 @@ export const LoadingScreen = () => {
         justifyContent: "center",
         background: "linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)",
         zIndex: 9999,
+        animation: "fadeIn 1s ease-in",
       }}
     >
       <Box
         sx={{
           textAlign: "center",
-          animation: "fadeIn 1s ease-in",
         }}
       >
         <Typography
@@ -54,19 +54,6 @@ export const LoadingScreen = () => {
           Loading Creative Portfolio...
         </Typography>
       </Box>
-
-      <style jsx>{`
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
     </Box>
   );
 };

@@ -12,10 +12,25 @@ export const Hero = ({ stats, rotatingTexts, isAvailable }) => {
   });
 
   const formattedStats = [
-    { label: "Projects", value: stats?.projects || 0, suffix: "Completed" },
-    { label: "Clients", value: stats?.clients || 0, suffix: "Worldwide" },
-    { label: "Views", value: stats?.views || 0, suffix: "Total" },
-    { label: "Awards", value: stats?.awards || 0, suffix: "Won" },
+    {
+      label: "Projects",
+      value: stats?.projects || 0,
+      suffix: "Completed",
+      key: "projects",
+    },
+    {
+      label: "Clients",
+      value: stats?.clients || 0,
+      suffix: "Worldwide",
+      key: "clients",
+    },
+    { label: "Views", value: stats?.views || 0, suffix: "Total", key: "views" },
+    {
+      label: "Awards",
+      value: stats?.awards || 0,
+      suffix: "Won",
+      key: "awards",
+    },
   ];
 
   useEffect(() => {
@@ -31,7 +46,7 @@ export const Hero = ({ stats, rotatingTexts, isAvailable }) => {
     const steps = 60;
     const stepDuration = duration / steps;
 
-    formattedStats.forEach((stat, index) => {
+    formattedStats.forEach((stat) => {
       let step = 0;
       const timer = setInterval(() => {
         step++;
@@ -40,7 +55,7 @@ export const Hero = ({ stats, rotatingTexts, isAvailable }) => {
 
         setAnimatedStats((prev) => ({
           ...prev,
-          [stat.label.toLowerCase()]: currentValue,
+          [stat.key]: currentValue,
         }));
 
         if (step >= steps) {
@@ -67,7 +82,12 @@ export const Hero = ({ stats, rotatingTexts, isAvailable }) => {
     <Box
       component="section"
       id="home"
-      sx={{ pt: 15, pb: 10, position: "relative" }}
+      sx={{
+        pt: 15,
+        pb: 10,
+        position: "relative",
+        background: "linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)",
+      }}
     >
       {/* Animated Background Elements */}
       <Box
@@ -254,8 +274,8 @@ export const Hero = ({ stats, rotatingTexts, isAvailable }) => {
 
         {/* Stats Grid */}
         <Grid container spacing={3} sx={{ mt: 8 }}>
-          {formattedStats.map((stat, i) => (
-            <Grid item xs={6} md={3} key={i}>
+          {formattedStats.map((stat) => (
+            <Grid key={stat.key} size={{ xs: 6, md: 3 }}>
               <Box
                 sx={{
                   p: 4,
@@ -284,9 +304,7 @@ export const Hero = ({ stats, rotatingTexts, isAvailable }) => {
                     mb: 1,
                   }}
                 >
-                  {formatNumber(
-                    animatedStats[stat.label.toLowerCase()] || stat.value
-                  )}
+                  {formatNumber(animatedStats[stat.key] || stat.value)}
                 </Typography>
                 <Typography
                   variant="h6"
@@ -313,38 +331,6 @@ export const Hero = ({ stats, rotatingTexts, isAvailable }) => {
           ))}
         </Grid>
       </Container>
-
-      {/* Animation Keyframes */}
-      <style jsx>{`
-        @keyframes float {
-          0%,
-          100% {
-            transform: translateY(0px) rotate(0deg);
-          }
-          50% {
-            transform: translateY(-20px) rotate(180deg);
-          }
-        }
-        @keyframes pulse {
-          0%,
-          100% {
-            opacity: 1;
-          }
-          50% {
-            opacity: 0.5;
-          }
-        }
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-            transform: translateY(10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
     </Box>
   );
 };

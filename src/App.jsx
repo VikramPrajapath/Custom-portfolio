@@ -9,7 +9,9 @@ import { Testimonials } from "./components/Testimonials";
 import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
 import { LoadingScreen } from "./components/LoadingScreen";
-import { SITE_CONFIG, DYNAMIC_CONTENT } from "./configs";
+
+// Import from configs - make sure the path is correct
+import { DYNAMIC_CONTENT, allProjects } from "./configs";
 
 // Create light and dark themes
 const lightTheme = createTheme({
@@ -145,10 +147,8 @@ export default function App() {
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 2000);
 
-    // Simulate fetching projects data
-    import("./configs").then(({ allProjects }) => {
-      setProjects(allProjects || []);
-    });
+    // Load projects data
+    setProjects(allProjects || []);
 
     return () => clearTimeout(timer);
   }, []);
@@ -179,13 +179,17 @@ export default function App() {
   }, []);
 
   const toggleDarkMode = () => {
-    setIsDark(!isDark);
-    document.body.classList.toggle("dark", !isDark);
+    const newDarkMode = !isDark;
+    setIsDark(newDarkMode);
+    document.body.classList.toggle("dark", newDarkMode);
   };
 
   const loadMoreProjects = () => {
     setVisibleProjects((prev) => prev + 6);
   };
+
+  const currentProjects = projects.slice(0, visibleProjects);
+  const hasMoreProjects = projects.length > visibleProjects;
 
   if (loading) {
     return <LoadingScreen />;
@@ -229,9 +233,9 @@ export default function App() {
         />
         <Services isDark={isDark} />
         <Projects
-          projects={projects.slice(0, visibleProjects)}
+          projects={currentProjects}
           onLoadMore={loadMoreProjects}
-          hasMore={projects.length > visibleProjects}
+          hasMore={hasMoreProjects}
         />
         <Testimonials isDark={isDark} />
         <Contact isDark={isDark} />
