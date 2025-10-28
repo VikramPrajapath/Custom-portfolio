@@ -12,7 +12,6 @@ import {
   Button,
 } from "@mui/material";
 import { Play, Eye, Heart, Clock, ExternalLink } from "lucide-react";
-import { PROJECT_CATEGORIES } from "./configs";
 
 // Dynamic projects data
 export const allProjects = [
