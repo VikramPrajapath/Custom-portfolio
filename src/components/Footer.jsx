@@ -19,7 +19,7 @@ export const Footer = ({ isDark }) => {
             color: isDark ? "grey.400" : "grey.600",
           }}
         >
-          © 2024 Narendra Prajapati. Crafted with passion & creativity.
+          © 2025 Ikris. Crafted with passion & creativity.
         </Typography>
       </Container>
     </Box>

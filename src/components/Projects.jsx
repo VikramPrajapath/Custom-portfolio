@@ -13,19 +13,11 @@ import {
 } from "@mui/material";
 import { Play, Eye, Heart, Clock, ExternalLink } from "lucide-react";
 
-// Define categories locally to avoid import issues
-const categories = [
-  "all",
-  "animations",
-  "podcast",
-  "videos",
-  "reels",
-  "thumbnail",
-];
+// Define categories
+const categories = ["all", "movies", "webseries", "reels", "commercials"];
 
 export const Projects = ({ projects = [], onLoadMore, hasMore }) => {
   const [selectedCategory, setSelectedCategory] = useState("all");
-  const [hoveredProject, setHoveredProject] = useState(null);
 
   const filteredProjects =
     selectedCategory === "all"
@@ -55,7 +47,7 @@ export const Projects = ({ projects = [], onLoadMore, hasMore }) => {
               mb: 2,
             }}
           >
-            Featured Work
+            Featured Projects
           </Typography>
           <Typography
             variant="h6"
@@ -66,8 +58,8 @@ export const Projects = ({ projects = [], onLoadMore, hasMore }) => {
               mb: 4,
             }}
           >
-            A collection of my latest projects that showcase creativity and
-            technical excellence
+            A showcase of my work across major films, web series, and commercial
+            projects
           </Typography>
 
           {/* Category Filter */}
@@ -121,8 +113,6 @@ export const Projects = ({ projects = [], onLoadMore, hasMore }) => {
                     boxShadow: "0 20px 40px rgba(103, 159, 157, 0.2)",
                   },
                 }}
-                onMouseEnter={() => setHoveredProject(project.id)}
-                onMouseLeave={() => setHoveredProject(null)}
                 onClick={() => handleProjectClick(project)}
               >
                 {/* Project Thumbnail */}
@@ -146,68 +136,26 @@ export const Projects = ({ projects = [], onLoadMore, hasMore }) => {
                       alignItems: "center",
                       justifyContent: "center",
                       background: "rgba(0,0,0,0.3)",
-                      opacity: hoveredProject === project.id ? 1 : 0,
                       transition: "all 0.3s ease",
                     }}
                   >
                     <Play size={48} style={{ color: "white" }} fill="white" />
                   </Box>
 
-                  {/* Duration Chip */}
-                  {project.duration !== "N/A" && (
-                    <Chip
-                      icon={<Clock size={14} />}
-                      label={project.duration}
-                      size="small"
-                      sx={{
-                        position: "absolute",
-                        bottom: 12,
-                        right: 12,
-                        bgcolor: "rgba(0,0,0,0.8)",
-                        color: "white",
-                        fontSize: "0.75rem",
-                      }}
-                    />
-                  )}
-
-                  {/* External Link */}
-                  {project.projectLink && (
-                    <Box
-                      sx={{
-                        position: "absolute",
-                        top: 12,
-                        right: 12,
-                        bgcolor: "rgba(255,255,255,0.9)",
-                        borderRadius: "50%",
-                        width: 32,
-                        height: 32,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        opacity: hoveredProject === project.id ? 1 : 0,
-                        transition: "all 0.3s ease",
-                      }}
-                    >
-                      <ExternalLink size={16} />
-                    </Box>
-                  )}
-
-                  {/* Featured Badge */}
-                  {project.featured && (
-                    <Chip
-                      label="Featured"
-                      size="small"
-                      sx={{
-                        position: "absolute",
-                        top: 12,
-                        left: 12,
-                        bgcolor: "rgba(103, 159, 157, 0.9)",
-                        color: "white",
-                        fontSize: "0.7rem",
-                        fontWeight: "bold",
-                      }}
-                    />
-                  )}
+                  {/* Project Type Badge */}
+                  <Chip
+                    label={project.type}
+                    size="small"
+                    sx={{
+                      position: "absolute",
+                      top: 12,
+                      left: 12,
+                      bgcolor: "rgba(103, 159, 157, 0.9)",
+                      color: "white",
+                      fontSize: "0.7rem",
+                      fontWeight: "bold",
+                    }}
+                  />
                 </Box>
 
                 <CardContent sx={{ p: 3 }}>
@@ -277,17 +225,6 @@ export const Projects = ({ projects = [], onLoadMore, hasMore }) => {
                           sx={{ fontSize: "0.875rem" }}
                         >
                           {project.views}
-                        </Typography>
-                      </Box>
-                      <Box
-                        sx={{ display: "flex", alignItems: "center", gap: 1 }}
-                      >
-                        <Heart size={16} />
-                        <Typography
-                          variant="body2"
-                          sx={{ fontSize: "0.875rem" }}
-                        >
-                          {project.likes}
                         </Typography>
                       </Box>
                     </Box>
