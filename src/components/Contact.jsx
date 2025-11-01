@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Container, Typography, Button, Grid } from "@mui/material";
 import { MessageCircle, Mail, Phone, MapPin } from "lucide-react";
 
-export const Contact = ({ isDark }) => {
+export const Contact = () => {
   return (
     <Box component="section" id="contact" sx={{ py: 12 }}>
       <Container maxWidth="lg">
@@ -20,9 +20,7 @@ export const Contact = ({ isDark }) => {
                 <Box
                   component="span"
                   sx={{
-                    background: isDark
-                      ? "linear-gradient(135deg, #8bc6c4, #679f9d)"
-                      : "linear-gradient(135deg, #679f9d, #26325b)",
+                    background: "linear-gradient(135deg, #679f9d, #26325b)",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
                     backgroundClip: "text",
@@ -36,7 +34,7 @@ export const Contact = ({ isDark }) => {
                 variant="h6"
                 sx={{
                   mb: 4,
-                  color: isDark ? "grey.300" : "grey.600",
+                  color: "grey.600",
                   lineHeight: 1.6,
                 }}
               >
@@ -49,9 +47,9 @@ export const Contact = ({ isDark }) => {
                 sx={{ display: "flex", flexDirection: "column", gap: 2, mb: 4 }}
               >
                 {[
-                  { icon: Mail, text: "hello@vikram.com" },
-                  { icon: Phone, text: "+1 (555) 123-4567" },
-                  { icon: MapPin, text: "Based in Creative City" },
+                  { icon: Phone, text: "+91 9591915816" },
+                  { icon: Mail, text: "mr.narendra416@gmail.com" },
+                  { icon: MapPin, text: "Based in India" },
                 ].map((item, index) => (
                   <Box
                     key={index}
@@ -61,23 +59,15 @@ export const Contact = ({ isDark }) => {
                       sx={{
                         p: 1,
                         borderRadius: "50%",
-                        bgcolor: isDark
-                          ? "rgba(139, 198, 196, 0.1)"
-                          : "rgba(103, 159, 157, 0.1)",
+                        bgcolor: "rgba(103, 159, 157, 0.1)",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
                       }}
                     >
-                      <item.icon
-                        size={20}
-                        style={{ color: isDark ? "#8bc6c4" : "#679f9d" }}
-                      />
+                      <item.icon size={20} style={{ color: "#679f9d" }} />
                     </Box>
-                    <Typography
-                      variant="body1"
-                      sx={{ color: isDark ? "grey.300" : "grey.700" }}
-                    >
+                    <Typography variant="body1" sx={{ color: "grey.700" }}>
                       {item.text}
                     </Typography>
                   </Box>
@@ -91,13 +81,10 @@ export const Contact = ({ isDark }) => {
               sx={{
                 p: 6,
                 borderRadius: 6,
-                background: isDark
-                  ? "linear-gradient(135deg, rgba(139, 198, 196, 0.05), rgba(103, 159, 157, 0.05))"
-                  : "linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(99, 102, 241, 0.05))",
+                background:
+                  "linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(99, 102, 241, 0.05))",
                 backdropFilter: "blur(10px)",
-                border: isDark
-                  ? "1px solid rgba(139, 198, 196, 0.2)"
-                  : "1px solid rgba(59, 130, 246, 0.2)",
+                border: "1px solid rgba(59, 130, 246, 0.2)",
                 textAlign: "center",
                 position: "relative",
                 overflow: "hidden",
@@ -107,9 +94,7 @@ export const Contact = ({ isDark }) => {
               <MessageCircle
                 size={120}
                 style={{
-                  color: isDark
-                    ? "rgba(139, 198, 196, 0.1)"
-                    : "rgba(103, 159, 157, 0.1)",
+                  color: "rgba(103, 159, 157, 0.1)",
                   position: "absolute",
                   top: "50%",
                   left: "50%",
@@ -122,7 +107,7 @@ export const Contact = ({ isDark }) => {
                 <MessageCircle
                   size={48}
                   style={{
-                    color: isDark ? "#8bc6c4" : "#679f9d",
+                    color: "#679f9d",
                     marginBottom: "1.5rem",
                   }}
                 />
@@ -141,7 +126,7 @@ export const Contact = ({ isDark }) => {
                   variant="body1"
                   sx={{
                     mb: 4,
-                    color: isDark ? "grey.300" : "grey.600",
+                    color: "grey.600",
                   }}
                 >
                   Let's discuss your ideas and create something amazing together
@@ -155,9 +140,7 @@ export const Contact = ({ isDark }) => {
                     px: 5,
                     py: 2,
                     fontSize: "1.1rem",
-                    background: isDark
-                      ? "linear-gradient(135deg, #679f9d, #26325b)"
-                      : "linear-gradient(135deg, #679f9d, #f98787)",
+                    background: "linear-gradient(135deg, #679f9d, #f98787)",
                     boxShadow: "0 4px 15px rgba(0,0,0,0.2)",
                     "&:hover": {
                       transform: "translateY(-2px)",
