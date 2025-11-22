@@ -24,13 +24,14 @@ const testimonials = [
 
 export const Testimonials = ({ isDark }) => {
   return (
-    <Box component="section" id="testimonials" sx={{ py: 8 }}>
+    <Box component="section" id="testimonials" sx={{ py: { xs: 6, md: 8 } }}>
+      {" "}
       <Container maxWidth="lg">
         <Typography
           variant="h3"
           sx={{
             textAlign: "center",
-            mb: 6,
+            mb: 4, // Reduced from 6
             fontWeight: "bold",
           }}
         >

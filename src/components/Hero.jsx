@@ -118,8 +118,8 @@ export const Hero = ({ stats }) => {
       component="section"
       id="home"
       sx={{
-        pt: { xs: 12, md: 15 },
-        pb: { xs: 8, md: 10 },
+        pt: { xs: 9, md: 10 },
+        pb: { xs: 4, md: 5 },
         position: "relative",
         background:
           "linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f1f5f9 100%)",
@@ -399,12 +399,12 @@ export const Hero = ({ stats }) => {
         </Box>
 
         {/* Enhanced Stats Grid */}
-        <Grid container spacing={3} sx={{ mt: 4 }}>
+        <Grid container spacing={3} sx={{ mt: 3 }}>
           {formattedStats.map((stat) => (
-            <Grid key={stat.key} size={{ xs: 6, md: 4 }}>
+            <Grid key={stat.key} size={{ xs: 4, md: 4 }}>
               <Box
                 sx={{
-                  p: { xs: 3, md: 4 },
+                  p: { xs: 2, md: 3 },
                   borderRadius: 3,
                   bgcolor: "rgba(255, 255, 255, 0.7)",
                   backdropFilter: "blur(10px)",
