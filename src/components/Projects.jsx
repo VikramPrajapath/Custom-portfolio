@@ -80,7 +80,13 @@ export const Projects = ({ projects = [], onLoadMore, hasMore }) => {
     <Box
       component="section"
       id="projects"
-      sx={{ py: { xs: 6, md: 8 }, overflow: "hidden" }}
+      sx={{
+        py: { xs: 6, md: 8 },
+        overflow: "hidden",
+        background:
+          "linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f1f5f9 100%)",
+        position: "relative",
+      }}
     >
       <Container maxWidth="lg">
         <Box sx={{ textAlign: "center", mb: 6 }}>
@@ -90,7 +96,7 @@ export const Projects = ({ projects = [], onLoadMore, hasMore }) => {
               fontWeight: 800,
               mb: 2,
               fontSize: { xs: "2rem", md: "2.75rem" },
-              background: "linear-gradient(135deg, #0f172a 0%, #679f9d 100%)",
+              background: "linear-gradient(135deg, #1e40af, #3b82f6, #6366f1)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
@@ -101,17 +107,17 @@ export const Projects = ({ projects = [], onLoadMore, hasMore }) => {
           <Typography
             variant="h6"
             sx={{
-              color: "#64748b",
+              color: "grey.600",
               maxWidth: "600px",
               mx: "auto",
               mb: 4,
-              fontSize: { xs: "0.95rem", md: "1rem" },
+              fontSize: { xs: "1rem", md: "1.25rem" },
               lineHeight: 1.6,
-              fontWeight: 500,
+              fontWeight: 400,
             }}
           >
-            Explore my portfolio of work across diverse projects, showcasing
-            expertise in production and creative direction
+            Transforming creative concepts into compelling visual narratives
+            with expert video editing, VFX artistry, and motion design.
           </Typography>
 
           {/* Category Filter */}
@@ -129,31 +135,33 @@ export const Projects = ({ projects = [], onLoadMore, hasMore }) => {
                 key={category}
                 onClick={() => handleCategoryChange(null, category)}
                 sx={{
-                  px: 2.5,
+                  px: 3,
                   py: 1,
-                  borderRadius: 2,
+                  borderRadius: 3,
                   fontSize: { xs: "0.85rem", md: "0.9rem" },
                   fontWeight: 600,
                   cursor: "pointer",
                   textTransform: "capitalize",
-                  transition: "all 0.3s ease",
+                  transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
                   border:
                     selectedCategory === category
-                      ? "2px solid #679f9d"
-                      : "1px solid rgba(103, 159, 157, 0.2)",
+                      ? "1px solid rgba(59, 130, 246, 0.3)"
+                      : "1px solid rgba(59, 130, 246, 0.1)",
                   bgcolor:
                     selectedCategory === category
-                      ? "linear-gradient(135deg, rgba(103, 159, 157, 0.1), rgba(38, 50, 91, 0.1))"
-                      : "rgba(255, 255, 255, 0.5)",
-                  color: selectedCategory === category ? "#679f9d" : "#64748b",
+                      ? "rgba(255, 255, 255, 0.9)"
+                      : "rgba(255, 255, 255, 0.7)",
+                  color: selectedCategory === category ? "#3b82f6" : "grey.600",
                   boxShadow:
                     selectedCategory === category
-                      ? "0 4px 12px rgba(103, 159, 157, 0.15)"
-                      : "0 2px 4px rgba(0,0,0,0.05)",
+                      ? "0 4px 12px rgba(59, 130, 246, 0.15)"
+                      : "none",
                   "&:hover": {
-                    border: "2px solid #679f9d",
-                    color: "#679f9d",
-                    boxShadow: "0 4px 12px rgba(103, 159, 157, 0.15)",
+                    bgcolor: "rgba(255, 255, 255, 0.9)",
+                    border: "1px solid rgba(59, 130, 246, 0.3)",
+                    color: "#3b82f6",
+                    boxShadow: "0 4px 12px rgba(59, 130, 246, 0.15)",
+                    transform: "translateY(-2px)",
                   },
                 }}
               >
@@ -239,19 +247,20 @@ export const Projects = ({ projects = [], onLoadMore, hasMore }) => {
                   maxWidth: { xs: "300px", md: "360px" },
                   flexShrink: 0,
                   borderRadius: 3,
-                  bgcolor: "rgba(255, 255, 255, 0.95)",
+                  bgcolor: "rgba(255, 255, 255, 0.7)",
                   backdropFilter: "blur(10px)",
-                  border: "1px solid rgba(103, 159, 157, 0.15)",
+                  border: "1px solid rgba(59, 130, 246, 0.1)",
                   transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
                   cursor: "pointer",
                   overflow: "hidden",
                   position: "relative",
                   animation: `slideInUp 0.6s ease-out ${index * 0.1}s both`,
-                  boxShadow: "0 2px 8px rgba(0, 0, 0, 0.08)",
+                  boxShadow: "0 4px 12px rgba(0, 0, 0, 0.05)",
                   "&:hover": {
-                    transform: "translateY(-10px)",
-                    boxShadow: "0 16px 32px rgba(103, 159, 157, 0.15)",
-                    border: "1px solid rgba(103, 159, 157, 0.3)",
+                    transform: "translateY(-4px)",
+                    boxShadow: "0 12px 28px rgba(59, 130, 246, 0.12)",
+                    border: "1px solid rgba(59, 130, 246, 0.2)",
+                    bgcolor: "rgba(255, 255, 255, 0.9)",
                     "& .play-overlay": {
                       opacity: 1,
                       background: "rgba(0,0,0,0.65)",
@@ -314,17 +323,17 @@ export const Projects = ({ projects = [], onLoadMore, hasMore }) => {
                     <Box
                       sx={{
                         position: "absolute",
-                        top: 16,
-                        right: 16,
-                        bgcolor: "#ef4444",
+                        top: 12,
+                        right: 12,
+                        bgcolor: "rgba(220, 38, 38, 0.95)",
                         color: "white",
-                        px: 2,
+                        px: 2.5,
                         py: 0.75,
                         borderRadius: 2,
                         fontSize: "0.65rem",
                         fontWeight: 700,
                         letterSpacing: "0.5px",
-                        boxShadow: "0 4px 12px rgba(239, 68, 68, 0.3)",
+                        boxShadow: "0 4px 12px rgba(220, 38, 38, 0.3)",
                       }}
                     >
                       FEATURED
@@ -335,11 +344,11 @@ export const Projects = ({ projects = [], onLoadMore, hasMore }) => {
                   <Box
                     sx={{
                       position: "absolute",
-                      top: 16,
-                      left: 16,
-                      bgcolor: "rgba(103, 159, 157, 0.9)",
+                      top: 12,
+                      left: 12,
+                      bgcolor: "rgba(59, 130, 246, 0.95)",
                       color: "white",
-                      px: 2,
+                      px: 2.5,
                       py: 0.75,
                       borderRadius: 2,
                       fontSize: "0.7rem",
@@ -360,9 +369,9 @@ export const Projects = ({ projects = [], onLoadMore, hasMore }) => {
                     sx={{
                       fontWeight: 700,
                       mb: 1,
-                      lineHeight: 1.4,
-                      color: "#0f172a",
-                      fontSize: { xs: "1.05rem", md: "1.15rem" },
+                      lineHeight: 1.3,
+                      color: "#1e293b",
+                      fontSize: { xs: "1rem", md: "1.1rem" },
                       display: "-webkit-box",
                       WebkitLineClamp: 2,
                       WebkitBoxOrient: "vertical",
@@ -376,7 +385,7 @@ export const Projects = ({ projects = [], onLoadMore, hasMore }) => {
                   <Typography
                     variant="body2"
                     sx={{
-                      color: "#64748b",
+                      color: "grey.600",
                       mb: 2,
                       fontSize: "0.875rem",
                       lineHeight: 1.5,
@@ -393,7 +402,7 @@ export const Projects = ({ projects = [], onLoadMore, hasMore }) => {
                   <Box
                     sx={{
                       height: "1px",
-                      bgcolor: "rgba(103, 159, 157, 0.1)",
+                      bgcolor: "rgba(59, 130, 246, 0.1)",
                       mb: 2,
                     }}
                   />
@@ -414,8 +423,8 @@ export const Projects = ({ projects = [], onLoadMore, hasMore }) => {
                           key={idx}
                           sx={{
                             display: "inline-block",
-                            bgcolor: "rgba(103, 159, 157, 0.08)",
-                            color: "#679f9d",
+                            bgcolor: "rgba(59, 130, 246, 0.08)",
+                            color: "#3b82f6",
                             px: 1.5,
                             py: 0.5,
                             borderRadius: 1,
@@ -467,8 +476,8 @@ export const Projects = ({ projects = [], onLoadMore, hasMore }) => {
                     <Box
                       sx={{
                         display: "inline-block",
-                        bgcolor: "rgba(103, 159, 157, 0.1)",
-                        color: "#679f9d",
+                        bgcolor: "rgba(59, 130, 246, 0.1)",
+                        color: "#3b82f6",
                         px: 1.75,
                         py: 0.5,
                         borderRadius: 1,
@@ -526,22 +535,23 @@ export const Projects = ({ projects = [], onLoadMore, hasMore }) => {
             <Button
               variant="outlined"
               onClick={onLoadMore}
+              size="large"
               sx={{
                 borderRadius: "50px",
-                px: 4,
-                py: 1.25,
-                borderColor: "#679f9d",
-                color: "#679f9d",
+                px: 5,
+                py: 1.5,
+                borderColor: "#3b82f6",
+                color: "#3b82f6",
                 borderWidth: 2,
                 fontWeight: 600,
-                fontSize: "0.95rem",
+                fontSize: { xs: "1rem", md: "1.1rem" },
                 "&:hover": {
-                  bgcolor: "rgba(103, 159, 157, 0.1)",
+                  bgcolor: "rgba(59, 130, 246, 0.08)",
                   borderWidth: 2,
                   transform: "translateY(-2px)",
-                  boxShadow: "0 4px 12px rgba(103, 159, 157, 0.2)",
+                  boxShadow: "0 4px 12px rgba(59, 130, 246, 0.15)",
                 },
-                transition: "all 0.3s ease",
+                transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
               }}
             >
               Load More Projects
