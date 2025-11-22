@@ -13,7 +13,6 @@ const workExperience = [
     id: "technicolor",
     title: "VFX Compositor",
     company: "Technicolor Creative Studios",
-    period: "2022 - Present",
     description:
       "Senior VFX compositor working on major film and streaming projects",
     logo: "🎬",
@@ -23,7 +22,6 @@ const workExperience = [
     id: "rotomaker",
     title: "VFX Compositor",
     company: "Rotomaker Studios",
-    period: "2021 - 2022",
     description: "VFX compositing for commercial and film projects",
     logo: "🎥",
     type: "studio",
@@ -32,7 +30,6 @@ const workExperience = [
     id: "avgci",
     title: "VFX Faculty",
     company: "AVGCI Multimedia",
-    period: "2020 - 2021",
     description: "Teaching VFX and compositing techniques to aspiring artists",
     logo: "🎓",
     type: "education",
@@ -41,7 +38,6 @@ const workExperience = [
     id: "maac",
     title: "VFX Faculty",
     company: "MAAC Multimedia",
-    period: "2019 - 2020",
     description: "Instructing students in advanced VFX and motion graphics",
     logo: "💻",
     type: "education",
@@ -50,7 +46,6 @@ const workExperience = [
     id: "firstminds",
     title: "VFX Faculty",
     company: "Firstminds Academy",
-    period: "2018 - 2019",
     description: "Foundational VFX and editing instruction",
     logo: "📚",
     type: "education",
@@ -59,7 +54,6 @@ const workExperience = [
     id: "freelance",
     title: "Freelance Video Editor & Graphic Designer",
     company: "Self Employed",
-    period: "2017 - Present",
     description:
       "Providing professional video editing and design services to clients worldwide",
     logo: "🚀",
@@ -69,9 +63,10 @@ const workExperience = [
 
 export const Services = () => {
   return (
-    <Box component="section" id="services" sx={{ py: 10 }}>
+    <Box component="section" id="services" sx={{ py: { xs: 4, md: 3 } }}>
+      {" "}
       <Container maxWidth="lg">
-        <Box sx={{ textAlign: "center", mb: 8 }}>
+        <Box sx={{ textAlign: "center", mb: 3 }}>
           <Typography
             variant="h3"
             sx={{
@@ -143,32 +138,6 @@ export const Services = () => {
                   >
                     {experience.company}
                   </Typography>
-
-                  <Box
-                    sx={{
-                      display: "inline-block",
-                      px: 2,
-                      py: 0.5,
-                      borderRadius: "20px",
-                      bgcolor:
-                        experience.type === "studio"
-                          ? "rgba(59, 130, 246, 0.1)"
-                          : experience.type === "education"
-                          ? "rgba(34, 197, 94, 0.1)"
-                          : "rgba(249, 115, 22, 0.1)",
-                      color:
-                        experience.type === "studio"
-                          ? "#3b82f6"
-                          : experience.type === "education"
-                          ? "#16a34a"
-                          : "#f97316",
-                      fontSize: "0.75rem",
-                      fontWeight: "600",
-                      mb: 2,
-                    }}
-                  >
-                    {experience.period}
-                  </Box>
 
                   <Typography
                     variant="body2"
