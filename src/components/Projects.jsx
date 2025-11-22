@@ -5,9 +5,6 @@ import {
   Typography,
   Card,
   CardContent,
-  Chip,
-  ToggleButton,
-  ToggleButtonGroup,
   Button,
   IconButton,
   useTheme,
@@ -83,16 +80,26 @@ export const Projects = ({ projects = [], onLoadMore, hasMore }) => {
     <Box
       component="section"
       id="projects"
-      sx={{ py: { xs: 6, md: 8 }, overflow: "hidden" }}
+      sx={{
+        py: { xs: 6, md: 8 },
+        overflow: "hidden",
+        background:
+          "linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f1f5f9 100%)",
+        position: "relative",
+      }}
     >
       <Container maxWidth="lg">
-        <Box sx={{ textAlign: "center", mb: 4 }}>
+        <Box sx={{ textAlign: "center", mb: 6 }}>
           <Typography
             variant="h3"
             sx={{
-              fontWeight: "bold",
-              mb: 1.5,
-              fontSize: { xs: "2rem", md: "2.5rem" },
+              fontWeight: 800,
+              mb: 2,
+              fontSize: { xs: "2rem", md: "2.75rem" },
+              background: "linear-gradient(135deg, #1e40af, #3b82f6, #6366f1)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
             }}
           >
             Featured Projects
@@ -103,46 +110,65 @@ export const Projects = ({ projects = [], onLoadMore, hasMore }) => {
               color: "grey.600",
               maxWidth: "600px",
               mx: "auto",
-              mb: 3,
-              fontSize: { xs: "1rem", md: "1.1rem" },
+              mb: 4,
+              fontSize: { xs: "1rem", md: "1.25rem" },
+              lineHeight: 1.6,
+              fontWeight: 400,
             }}
           >
-            A showcase of my work across major films, web series, and commercial
-            projects
+            Transforming creative concepts into compelling visual narratives
+            with expert video editing, VFX artistry, and motion design.
           </Typography>
 
           {/* Category Filter */}
-          <ToggleButtonGroup
-            value={selectedCategory}
-            exclusive
-            onChange={handleCategoryChange}
-            aria-label="project categories"
+          <Box
             sx={{
-              mb: 3,
+              display: "flex",
+              justifyContent: "center",
               flexWrap: "wrap",
-              gap: 1,
-              "& .MuiToggleButton-root": {
-                border: "1px solid rgba(103, 159, 157, 0.3)",
-                borderRadius: "20px",
-                padding: "6px 14px",
-                textTransform: "capitalize",
-                fontSize: { xs: "0.85rem", md: "0.9rem" },
-                "&.Mui-selected": {
-                  background: "linear-gradient(135deg, #679f9d, #26325b)",
-                  color: "white",
-                  "&:hover": {
-                    background: "linear-gradient(135deg, #679f9d, #26325b)",
-                  },
-                },
-              },
+              gap: 1.5,
+              mb: 2,
             }}
           >
             {categories.map((category) => (
-              <ToggleButton key={category} value={category}>
+              <Box
+                key={category}
+                onClick={() => handleCategoryChange(null, category)}
+                sx={{
+                  px: 3,
+                  py: 1,
+                  borderRadius: 3,
+                  fontSize: { xs: "0.85rem", md: "0.9rem" },
+                  fontWeight: 600,
+                  cursor: "pointer",
+                  textTransform: "capitalize",
+                  transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                  border:
+                    selectedCategory === category
+                      ? "1px solid rgba(59, 130, 246, 0.3)"
+                      : "1px solid rgba(59, 130, 246, 0.1)",
+                  bgcolor:
+                    selectedCategory === category
+                      ? "rgba(255, 255, 255, 0.9)"
+                      : "rgba(255, 255, 255, 0.7)",
+                  color: selectedCategory === category ? "#3b82f6" : "grey.600",
+                  boxShadow:
+                    selectedCategory === category
+                      ? "0 4px 12px rgba(59, 130, 246, 0.15)"
+                      : "none",
+                  "&:hover": {
+                    bgcolor: "rgba(255, 255, 255, 0.9)",
+                    border: "1px solid rgba(59, 130, 246, 0.3)",
+                    color: "#3b82f6",
+                    boxShadow: "0 4px 12px rgba(59, 130, 246, 0.15)",
+                    transform: "translateY(-2px)",
+                  },
+                }}
+              >
                 {category === "all" ? "All Projects" : category}
-              </ToggleButton>
+              </Box>
             ))}
-          </ToggleButtonGroup>
+          </Box>
         </Box>
 
         {/* Carousel Container */}
@@ -220,24 +246,27 @@ export const Projects = ({ projects = [], onLoadMore, hasMore }) => {
                   minWidth: { xs: "300px", md: "360px" },
                   maxWidth: { xs: "300px", md: "360px" },
                   flexShrink: 0,
-                  borderRadius: 4,
-                  bgcolor: "rgba(255, 255, 255, 0.9)",
+                  borderRadius: 3,
+                  bgcolor: "rgba(255, 255, 255, 0.7)",
                   backdropFilter: "blur(10px)",
-                  border: "1px solid rgba(103, 159, 157, 0.2)",
-                  transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+                  border: "1px solid rgba(59, 130, 246, 0.1)",
+                  transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
                   cursor: "pointer",
                   overflow: "hidden",
                   position: "relative",
                   animation: `slideInUp 0.6s ease-out ${index * 0.1}s both`,
+                  boxShadow: "0 4px 12px rgba(0, 0, 0, 0.05)",
                   "&:hover": {
-                    transform: "translateY(-12px) scale(1.02)",
-                    boxShadow: "0 25px 50px rgba(103, 159, 157, 0.25)",
+                    transform: "translateY(-4px)",
+                    boxShadow: "0 12px 28px rgba(59, 130, 246, 0.12)",
+                    border: "1px solid rgba(59, 130, 246, 0.2)",
+                    bgcolor: "rgba(255, 255, 255, 0.9)",
                     "& .play-overlay": {
                       opacity: 1,
-                      background: "rgba(0,0,0,0.6)",
+                      background: "rgba(0,0,0,0.65)",
                     },
                     "& .play-icon": {
-                      transform: "scale(1.2) rotate(360deg)",
+                      transform: "scale(1.15)",
                     },
                   },
                 }}
@@ -248,7 +277,9 @@ export const Projects = ({ projects = [], onLoadMore, hasMore }) => {
                   sx={{
                     position: "relative",
                     paddingTop: "56.25%",
-                    background: project.color,
+                    background:
+                      project.color ||
+                      "linear-gradient(135deg, #679f9d, #26325b)",
                     overflow: "hidden",
                   }}
                 >
@@ -264,81 +295,117 @@ export const Projects = ({ projects = [], onLoadMore, hasMore }) => {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      background: "rgba(0,0,0,0.4)",
-                      transition: "all 0.4s ease",
-                      opacity: 0.7,
+                      background: "rgba(0,0,0,0.5)",
+                      transition: "all 0.3s ease",
+                      opacity: 0.6,
                     }}
                   >
                     <Box
                       className="play-icon"
                       sx={{
-                        transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+                        transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        width: 64,
+                        height: 64,
+                        borderRadius: "50%",
+                        background: "rgba(255, 255, 255, 0.2)",
+                        backdropFilter: "blur(10px)",
                       }}
                     >
-                      <Play size={56} style={{ color: "white" }} fill="white" />
+                      <Play size={32} style={{ color: "white" }} fill="white" />
                     </Box>
                   </Box>
 
                   {/* Featured Badge */}
                   {project.featured && (
-                    <Chip
-                      label="FEATURED"
-                      size="small"
+                    <Box
                       sx={{
                         position: "absolute",
                         top: 12,
                         right: 12,
                         bgcolor: "rgba(220, 38, 38, 0.95)",
                         color: "white",
+                        px: 2.5,
+                        py: 0.75,
+                        borderRadius: 2,
                         fontSize: "0.65rem",
-                        fontWeight: "bold",
+                        fontWeight: 700,
                         letterSpacing: "0.5px",
+                        boxShadow: "0 4px 12px rgba(220, 38, 38, 0.3)",
                       }}
-                    />
+                    >
+                      FEATURED
+                    </Box>
                   )}
 
                   {/* Project Type Badge */}
-                  <Chip
-                    label={project.type}
-                    size="small"
+                  <Box
                     sx={{
                       position: "absolute",
                       top: 12,
                       left: 12,
-                      bgcolor: "rgba(103, 159, 157, 0.95)",
+                      bgcolor: "rgba(59, 130, 246, 0.95)",
                       color: "white",
+                      px: 2.5,
+                      py: 0.75,
+                      borderRadius: 2,
                       fontSize: "0.7rem",
-                      fontWeight: "bold",
+                      fontWeight: 600,
+                      textTransform: "uppercase",
+                      letterSpacing: "0.3px",
+                      backdropFilter: "blur(10px)",
                     }}
-                  />
+                  >
+                    {project.type || "Project"}
+                  </Box>
                 </Box>
 
-                <CardContent sx={{ p: 2.5 }}>
+                <CardContent sx={{ p: 3 }}>
+                  {/* Title */}
                   <Typography
                     variant="h6"
                     sx={{
-                      fontWeight: "bold",
-                      mb: 1.5,
+                      fontWeight: 700,
+                      mb: 1,
                       lineHeight: 1.3,
-                      color: "#26325b",
-                      minHeight: "48px",
+                      color: "#1e293b",
                       fontSize: { xs: "1rem", md: "1.1rem" },
+                      display: "-webkit-box",
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: "vertical",
+                      overflow: "hidden",
                     }}
                   >
                     {project.title}
                   </Typography>
 
+                  {/* Description */}
                   <Typography
                     variant="body2"
                     sx={{
                       color: "grey.600",
-                      mb: 1.5,
-                      fontSize: "0.85rem",
-                      minHeight: "40px",
+                      mb: 2,
+                      fontSize: "0.875rem",
+                      lineHeight: 1.5,
+                      display: "-webkit-box",
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: "vertical",
+                      overflow: "hidden",
                     }}
                   >
                     {project.description}
                   </Typography>
+
+                  {/* Divider */}
+                  <Box
+                    sx={{
+                      height: "1px",
+                      bgcolor: "rgba(59, 130, 246, 0.1)",
+                      mb: 2,
+                    }}
+                  />
 
                   {/* Tags */}
                   <Box
@@ -346,64 +413,82 @@ export const Projects = ({ projects = [], onLoadMore, hasMore }) => {
                       display: "flex",
                       flexWrap: "wrap",
                       gap: 0.75,
-                      mb: 1.5,
-                      minHeight: "28px",
+                      mb: 2.5,
+                      minHeight: "24px",
                     }}
                   >
-                    {project.tags.slice(0, 3).map((tag, index) => (
-                      <Chip
-                        key={index}
-                        label={tag}
-                        size="small"
-                        variant="outlined"
-                        sx={{
-                          borderColor: "#679f9d",
-                          color: "#679f9d",
-                          fontSize: "0.7rem",
-                          height: 22,
-                        }}
-                      />
-                    ))}
+                    {project.tags &&
+                      project.tags.slice(0, 3).map((tag, idx) => (
+                        <Box
+                          key={idx}
+                          sx={{
+                            display: "inline-block",
+                            bgcolor: "rgba(59, 130, 246, 0.08)",
+                            color: "#3b82f6",
+                            px: 1.5,
+                            py: 0.5,
+                            borderRadius: 1,
+                            fontSize: "0.7rem",
+                            fontWeight: 600,
+                            textTransform: "uppercase",
+                            letterSpacing: "0.2px",
+                          }}
+                        >
+                          {tag}
+                        </Box>
+                      ))}
                   </Box>
 
+                  {/* Footer Stats */}
                   <Box
                     sx={{
                       display: "flex",
                       justifyContent: "space-between",
                       alignItems: "center",
+                      pt: 1.5,
+                      borderTop: "1px solid rgba(103, 159, 157, 0.1)",
                     }}
                   >
                     <Box
                       sx={{
                         display: "flex",
-                        gap: 3,
-                        color: "grey.600",
+                        alignItems: "center",
+                        gap: 1.5,
+                        color: "#64748b",
                       }}
                     >
                       <Box
-                        sx={{ display: "flex", alignItems: "center", gap: 1 }}
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 0.75,
+                          fontSize: "0.85rem",
+                          fontWeight: 600,
+                        }}
                       >
-                        <Eye size={16} />
-                        <Typography
-                          variant="body2"
-                          sx={{ fontSize: "0.85rem", fontWeight: 600 }}
-                        >
-                          {project.views}
+                        <Eye size={16} strokeWidth={1.5} />
+                        <Typography variant="body2" sx={{ fontSize: "0.8rem" }}>
+                          {project.views || "N/A"}
                         </Typography>
                       </Box>
                     </Box>
 
-                    <Chip
-                      label={project.category}
-                      size="small"
+                    <Box
                       sx={{
-                        bgcolor: "rgba(103, 159, 157, 0.1)",
-                        color: "#679f9d",
-                        fontWeight: 600,
-                        textTransform: "capitalize",
-                        fontSize: "0.75rem",
+                        display: "inline-block",
+                        bgcolor: "rgba(59, 130, 246, 0.1)",
+                        color: "#3b82f6",
+                        px: 1.75,
+                        py: 0.5,
+                        borderRadius: 1,
+                        fontWeight: 700,
+                        textTransform: "uppercase",
+                        fontSize: "0.7rem",
+                        letterSpacing: "0.3px",
                       }}
-                    />
+                    >
+                      {project.category || "general"}
+                    </Box>
                   </Box>
                 </CardContent>
               </Card>
@@ -450,22 +535,23 @@ export const Projects = ({ projects = [], onLoadMore, hasMore }) => {
             <Button
               variant="outlined"
               onClick={onLoadMore}
+              size="large"
               sx={{
                 borderRadius: "50px",
-                px: 4,
-                py: 1.25,
-                borderColor: "#679f9d",
-                color: "#679f9d",
+                px: 5,
+                py: 1.5,
+                borderColor: "#3b82f6",
+                color: "#3b82f6",
                 borderWidth: 2,
                 fontWeight: 600,
-                fontSize: "0.95rem",
+                fontSize: { xs: "1rem", md: "1.1rem" },
                 "&:hover": {
-                  bgcolor: "rgba(103, 159, 157, 0.1)",
+                  bgcolor: "rgba(59, 130, 246, 0.08)",
                   borderWidth: 2,
                   transform: "translateY(-2px)",
-                  boxShadow: "0 4px 12px rgba(103, 159, 157, 0.2)",
+                  boxShadow: "0 4px 12px rgba(59, 130, 246, 0.15)",
                 },
-                transition: "all 0.3s ease",
+                transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
               }}
             >
               Load More Projects
